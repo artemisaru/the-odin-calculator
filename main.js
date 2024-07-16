@@ -25,7 +25,8 @@ function operate(e) {
         getOperationValues(userInput);
         putDisplayValue();
     } else if (buttonId == "clear") {
-
+        clearAll();
+        putDisplayValue();
     } else if (buttonId == "sign") {
 
     } else if (buttonId == "percentage") {
@@ -83,6 +84,16 @@ function getOperationValues(operator) {
     }
 
     console.log(`${firstOperand}, ${firstOperator}, ${secondOperand}, ${secondOperator}, ${result}`);
+}
+
+// Clear all
+function clearAll() {
+    displayVal = "0";
+    firstOperand = null;
+    secondOperand = null;
+    firstOperator = null;
+    secondOperator = null;
+    result = null;
 }
 
 // Basic Math Operations
