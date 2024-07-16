@@ -4,7 +4,7 @@ let secondOperand = null;
 let firstOperator = null;
 let secondOperator = null;
 let result = null;
-let displayVal = "";
+let displayVal = "0";
 
 // Buttons
 const buttons = document.querySelectorAll("button");
@@ -21,13 +21,9 @@ function operate(e) {
     if (buttonClass.contains("operand")) {
         getDisplayValue(userInput);
         putDisplayValue();
-        //getOperationValues();
     } else if (buttonClass.contains("operator")) {
         getOperationValues(userInput);
         putDisplayValue();
-    } else if (buttonId == "result") {
-        //test();
-        //putDisplayValue();
     } else if (buttonId == "clear") {
 
     } else if (buttonId == "sign") {
@@ -41,7 +37,9 @@ function operate(e) {
 
 // Get Display Value from Number Input
 function getDisplayValue(num) {
-    if (displayVal == firstOperand) {
+    if (displayVal == "0") {
+        displayVal = num;
+    } else if (displayVal == firstOperand) {
         displayVal = num
     } else {
         displayVal += num;
@@ -55,33 +53,37 @@ function putDisplayValue() {
 
 // Get Operands and Operators from Operator Input
 function getOperationValues(operator) {
-    if (firstOperator != null && secondOperator == null) {
+    if (firstOperator != null) {
         secondOperand = displayVal;
-        secondOperator = operator;
         calculate(firstOperator);
         displayVal = result.toString();
         firstOperand = displayVal;
         secondOperand = null;
+        firstOperator = null;
+        if (operator != "=") {
+            secondOperator = operator;
+        }
         result = null;
-        console.log(`${firstOperand}, ${firstOperator}, ${secondOperand}, ${secondOperator}, ${result}`);
-    } else if (firstOperator != null && secondOperator != null) {
+    } else if (secondOperator != null) {
         secondOperand = displayVal;
-        firstOperator = operator;
         calculate(secondOperator);
         displayVal = result.toString();
         firstOperand = displayVal;
         secondOperand = null;
+        if (operator != "=") {
+            firstOperator = operator;
+        }
         secondOperator = null;
         result = null;
-        console.log(`${firstOperand}, ${firstOperator}, ${secondOperand}, ${secondOperator}, ${result}`);
     } else {
         firstOperand = displayVal;
-        firstOperator = operator;
-        console.log(`${firstOperand}, ${firstOperator}, ${secondOperand}, ${secondOperator}, ${result}`);
+        if (operator != "=") {
+            firstOperator = operator;
+        }
     }
-}
 
-// Reset Display Value
+    console.log(`${firstOperand}, ${firstOperator}, ${secondOperand}, ${secondOperator}, ${result}`);
+}
 
 // Basic Math Operations
 function add() {
