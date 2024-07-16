@@ -32,7 +32,8 @@ function operate(e) {
     } else if (buttonId == "percentage") {
 
     } else if (buttonId == "decimal") {
-
+        putDecimal(userInput);
+        putDisplayValue();
     }
 }
 
@@ -94,6 +95,16 @@ function clearAll() {
     firstOperator = null;
     secondOperator = null;
     result = null;
+}
+
+// Type Decimals
+function putDecimal(decimal) {
+    if (displayVal == firstOperand || displayVal == secondOperand) {
+        displayVal = "0";
+        displayVal += decimal;
+    } else if (!displayVal.includes(decimal)) {
+        displayVal += decimal;
+    }
 }
 
 // Basic Math Operations
