@@ -28,9 +28,11 @@ function operate(e) {
         clearAll();
         putDisplayValue();
     } else if (buttonId == "sign") {
-
+        addSign();
+        putDisplayValue();
     } else if (buttonId == "percentage") {
-
+        percentage();
+        putDisplayValue();
     } else if (buttonId == "decimal") {
         putDecimal(userInput);
         putDisplayValue();
@@ -95,6 +97,16 @@ function clearAll() {
     firstOperator = null;
     secondOperator = null;
     result = null;
+}
+
+// Percentage
+function percentage() {
+    displayVal = (displayVal/100).toString();
+}
+
+// Add Minus Sign for Negative Numbers
+function addSign() {
+    displayVal = (displayVal * -1).toString();
 }
 
 // Type Decimals
