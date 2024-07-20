@@ -6,12 +6,35 @@ let secondOperator = null;
 let result = null;
 let displayVal = "0";
 
+// Container
+const container = document.querySelector("#container");
+
+// Calculator
+const calculator = document.querySelector("#calculator")
+
 // Buttons
 const buttons = document.querySelectorAll("button");
 const clearBtn = document.querySelector("#clear");
 
 // Display
 const display = document.querySelector("#display");
+
+// Snarky Error Message
+const errorMessage = document.createElement("div");
+const gordonRamsay = document.createElement("img");
+const retryBtn = document.createElement("button");
+const btnIcon = document.createElement("i");
+
+errorMessage.classList.add("error-message");
+gordonRamsay.src = "./assets/images/gordon.gif";
+retryBtn.classList.add("btn");
+retryBtn.id = "retry";
+btnIcon.classList.add("fa-solid");
+btnIcon.classList.add("fa-rotate-right");
+
+errorMessage.appendChild(gordonRamsay);
+errorMessage.appendChild(retryBtn);
+retryBtn.appendChild(btnIcon);
 
 // Make the Calculator Work
 function operate(e) {
@@ -163,6 +186,8 @@ function multiply() {
 function divide() {
     let division = Number(firstOperand) / Number(secondOperand);
     if (secondOperand == "0") {
+        container.removeChild(calculator);
+        container.appendChild(errorMessage);
         return "Oopsie";
     } else {
         return division;
