@@ -5,20 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/989b361632.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="container">
         <div id="calculator">
             <div id="display">0</div>
             <div class="btn-stack">
+                <button class="btn" id="backspace">
+                    <svg id="backspace" width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="backspace" clip-path="url(#clip0_895_44791)">
+                        <path id="backspace" d="M19.9992 6C20.2644 6 20.5187 6.10536 20.7063 6.29289C20.8938 6.48043 20.9992 6.73478 20.9992 7V17C20.9992 17.2652 20.8938 17.5196 20.7063 17.7071C20.5187 17.8946 20.2644 18 19.9992 18H8.99915L3.99915 13C3.75318 12.725 3.61719 12.369 3.61719 12C3.61719 11.631 3.75318 11.275 3.99915 11L8.99915 6H19.9992Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="backspace" d="M12 10L16 14M16 10L12 14" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                    </svg>
+                </button>
                 <button class="btn" id="clear">AC</button>
-                <button class="btn" id="sign">+/-</button>
                 <button class="btn" id="percentage">%</button>
                 <button class="btn operator focusable">/</button>
                 <button class="btn operand">7</button>
                 <button class="btn operand">8</button>
                 <button class="btn operand">9</button>
-                <button class="btn operator focusable">*</button>
+                <button class="btn operator focusable" id="asterx">*</button>
                 <button class="btn operand">4</button>
                 <button class="btn operand">5</button>
                 <button class="btn operand">6</button>
@@ -27,6 +35,7 @@
                 <button class="btn operand">2</button>
                 <button class="btn operand">3</button>
                 <button class="btn operator focusable">+</button>
+                <button class="btn" id="sign">+/-</button>
                 <button class="btn operand" id="zero">0</button>
                 <button class="btn" id="decimal">.</button>
                 <button class="btn operator">=</button>

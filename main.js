@@ -8,6 +8,7 @@ let displayVal = "0";
 
 // Buttons
 const buttons = document.querySelectorAll("button");
+const clearBtn = document.querySelector("#clear");
 
 // Display
 const display = document.querySelector("#display");
@@ -24,6 +25,8 @@ function operate(e) {
     } else if (buttonClass.contains("operator")) {
         getOperationValues(userInput);
         putDisplayValue();
+    } else if (buttonId == "backspace") {
+        clearOneLeft();
     } else if (buttonId == "clear") {
         clearAll();
         putDisplayValue();
@@ -43,8 +46,9 @@ function operate(e) {
 function getDisplayValue(num) {
     if (displayVal == "0") {
         displayVal = num;
+        clearBtn.textContent = "C";
     } else if (displayVal == firstOperand) {
-        displayVal = num
+        displayVal = num;
     } else {
         displayVal += num;
     }
@@ -59,10 +63,7 @@ function putDisplayValue() {
 function getOperationValues(operator) {
     if (firstOperator != null) {
         secondOperand = displayVal;
-        calculate(firstOperator);
-        displayVal = result.toString();
-        firstOperand = displayVal;
-        secondOperand = null;
+        getResult(firstOperator);
         firstOperator = null;
         if (operator != "=") {
             secondOperator = operator;
@@ -70,10 +71,7 @@ function getOperationValues(operator) {
         result = null;
     } else if (secondOperator != null) {
         secondOperand = displayVal;
-        calculate(secondOperator);
-        displayVal = result.toString();
-        firstOperand = displayVal;
-        secondOperand = null;
+        getResult(secondOperator);
         if (operator != "=") {
             firstOperator = operator;
         }
@@ -89,6 +87,34 @@ function getOperationValues(operator) {
     console.log(`${firstOperand}, ${firstOperator}, ${secondOperand}, ${secondOperator}, ${result}`);
 }
 
+// Get Operation Result and Pass it as the First Operand of the Next Operation
+function getResult(operator) {
+    calculate(operator);
+    displayVal = result.toString();
+    if (result == "Oopsie") {
+        firstOperand = null;
+        firstOperand = displayVal;
+    } else {
+        firstOperand = displayVal;
+    }
+    secondOperand = null;
+}
+
+// Backspace
+function clearOneLeft() {
+    const currentDisplay = Array.from(displayVal);
+    const clearedDisplay = [];
+    if (currentDisplay.length == 1) {
+        clearAll();
+    } else {
+        for (let i = 0; i < currentDisplay.length - 1; i++) {
+            clearedDisplay.push(currentDisplay[i]);
+        }
+        displayVal = clearedDisplay.join("");
+    }
+    putDisplayValue();
+}
+
 // Clear all
 function clearAll() {
     displayVal = "0";
@@ -97,11 +123,13 @@ function clearAll() {
     firstOperator = null;
     secondOperator = null;
     result = null;
+    clearBtn.textContent = "AC"
 }
 
 // Percentage
 function percentage() {
     displayVal = (displayVal/100).toString();
+    firstOperand = displayVal;
 }
 
 // Add Minus Sign for Negative Numbers
@@ -134,7 +162,11 @@ function multiply() {
 }
 function divide() {
     let division = Number(firstOperand) / Number(secondOperand);
-    return division;
+    if (secondOperand == "0") {
+        return "Oopsie";
+    } else {
+        return division;
+    }
 }
 
 function calculate(operator) {
