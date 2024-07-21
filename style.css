@@ -148,3 +148,27 @@ button#backspace:active svg {
     background-color: #597ef7;
     outline: 1px solid #ffffff;
 }
+
+/* Error Message */
+
+.error-message {
+    position: absolute;
+    z-index: 1;
+    top: 15%;
+    left: 50%;
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+    transition: all cubic-bezier(0.5, 0.1, 0.3, 1.4) .3s;
+    transition-delay: 0s;
+}
+
+.show-message {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    transition-delay: 0s;
+}
+
+.focus-gordon {
+    opacity: 0.5;
+    pointer-events: none;
+}

@@ -6,8 +6,8 @@ let secondOperator = null;
 let result = null;
 let displayVal = "0";
 
-// Container
-const container = document.querySelector("#container");
+// Text Variables
+const errorMessageText = "..."
 
 // Calculator
 const calculator = document.querySelector("#calculator")
@@ -20,21 +20,7 @@ const clearBtn = document.querySelector("#clear");
 const display = document.querySelector("#display");
 
 // Snarky Error Message
-const errorMessage = document.createElement("div");
-const gordonRamsay = document.createElement("img");
-const retryBtn = document.createElement("button");
-const btnIcon = document.createElement("i");
-
-errorMessage.classList.add("error-message");
-gordonRamsay.src = "./assets/images/gordon.gif";
-retryBtn.classList.add("btn");
-retryBtn.id = "retry";
-btnIcon.classList.add("fa-solid");
-btnIcon.classList.add("fa-rotate-right");
-
-errorMessage.appendChild(gordonRamsay);
-errorMessage.appendChild(retryBtn);
-retryBtn.appendChild(btnIcon);
+const errorMessage = document.querySelector(".error-message");
 
 // Make the Calculator Work
 function operate(e) {
@@ -52,7 +38,6 @@ function operate(e) {
         clearOneLeft();
     } else if (buttonId == "clear") {
         clearAll();
-        putDisplayValue();
     } else if (buttonId == "sign") {
         addSign();
         putDisplayValue();
@@ -114,7 +99,7 @@ function getOperationValues(operator) {
 function getResult(operator) {
     calculate(operator);
     displayVal = result.toString();
-    if (result == "Oopsie") {
+    if (result == errorMessageText) {
         firstOperand = null;
         firstOperand = displayVal;
     } else {
@@ -147,6 +132,7 @@ function clearAll() {
     secondOperator = null;
     result = null;
     clearBtn.textContent = "AC"
+    putDisplayValue();
 }
 
 // Percentage
@@ -170,6 +156,19 @@ function putDecimal(decimal) {
     }
 }
 
+// Show Error Message
+function showMessage() {
+    errorMessage.classList.add("show-message");
+    calculator.classList.add("focus-gordon");
+}
+
+// Hide Error Message
+function hideMessage() {
+    errorMessage.classList.remove("show-message");
+    calculator.classList.remove("focus-gordon");
+    setTimeout(clearAll, 600)
+}
+
 // Basic Math Operations
 function add() {
     let sum = Number(firstOperand) + Number(secondOperand);
@@ -186,9 +185,9 @@ function multiply() {
 function divide() {
     let division = Number(firstOperand) / Number(secondOperand);
     if (secondOperand == "0") {
-        container.removeChild(calculator);
-        container.appendChild(errorMessage);
-        return "Oopsie";
+        showMessage();
+        setTimeout(hideMessage, 3500);
+        return errorMessageText;
     } else {
         return division;
     }
