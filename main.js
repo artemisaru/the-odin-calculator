@@ -65,6 +65,15 @@ function getDisplayValue(num) {
 // Put Number Value on Display
 function putDisplayValue() {
     display.textContent = displayVal;
+    if (displayVal.length > 6) {
+        decreaseFontSize(5);
+    }
+}
+
+//
+function decreaseFontSize(currentSize) {
+    currentSize -= 1;
+    display.style.fontSize = `${currentSize}rem`;
 }
 
 // Get Operands and Operators from Operator Input
@@ -98,14 +107,21 @@ function getOperationValues(operator) {
 // Get Operation Result and Pass it as the First Operand of the Next Operation
 function getResult(operator) {
     calculate(operator);
-    displayVal = result.toString();
     if (result == errorMessageText) {
+        displayVal = result.toString();
         firstOperand = null;
         firstOperand = displayVal;
     } else {
+        displayVal = roundResult(result).toString();
         firstOperand = displayVal;
     }
     secondOperand = null;
+}
+
+// Round Result with Long Decimals Accurately
+function roundResult(num) {
+    const roundedResult = Number(Math.round(num + "e" + 8) + "e-" + 8);
+    return roundedResult;
 }
 
 // Backspace
