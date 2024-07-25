@@ -32,11 +32,14 @@ function operate(e) {
     if (buttonClass.contains("operand")) {
         getDisplayValue(userInput);
         putDisplayValue();
+        decreaseFontSize();
     } else if (buttonClass.contains("operator")) {
         getOperationValues(userInput);
         putDisplayValue();
+        decreaseFontSize();
     } else if (buttonId == "backspace") {
         clearOneLeft();
+        increaseFontSize();
     } else if (buttonId == "clear") {
         clearAll();
     } else if (buttonId == "sign") {
@@ -69,13 +72,25 @@ function putDisplayValue() {
     if (displayVal.length > 15) {
         display.textContent = displayVal.substring(0, 15);
     }
-    decreaseFontSize();
 }
 
 //
 function decreaseFontSize() {
     if (displayVal.length > 6 && displayVal.length < 13) {
         fontSize -= 0.5;
+        display.style.fontSize = `${fontSize}rem`;
+        console.log(fontSize);
+    } else if (displayVal.length >= 13) {
+        display.style.fontSize = `2rem`;
+    } else {
+        fontSize = 5;
+        display.style.fontSize = `${fontSize}rem`;
+    }
+}
+
+function increaseFontSize() {
+    if (displayVal.length > 6 && displayVal.length < 13) {
+        fontSize += 0.5;
         display.style.fontSize = `${fontSize}rem`;
         console.log(fontSize);
     } else if (displayVal.length >= 13) {
@@ -136,13 +151,12 @@ function roundResult(num) {
 
 // Backspace
 function clearOneLeft() {
-    const currentDisplay = Array.from(displayVal);
     const clearedDisplay = [];
-    if (currentDisplay.length == 1) {
+    if (displayVal.length == 1) {
         clearAll();
     } else {
-        for (let i = 0; i < currentDisplay.length - 1; i++) {
-            clearedDisplay.push(currentDisplay[i]);
+        for (let i = 0; i < displayVal.length - 1; i++) {
+            clearedDisplay.push(displayVal[i]);
         }
         displayVal = clearedDisplay.join("");
     }
