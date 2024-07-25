@@ -18,6 +18,7 @@ const clearBtn = document.querySelector("#clear");
 
 // Display
 const display = document.querySelector("#display");
+let fontSize = 5;
 
 // Snarky Error Message
 const errorMessage = document.querySelector(".error-message");
@@ -65,15 +66,24 @@ function getDisplayValue(num) {
 // Put Number Value on Display
 function putDisplayValue() {
     display.textContent = displayVal;
-    if (displayVal.length > 6) {
-        decreaseFontSize(5);
+    if (displayVal.length > 15) {
+        display.textContent = displayVal.substring(0, 15);
     }
+    decreaseFontSize();
 }
 
 //
-function decreaseFontSize(currentSize) {
-    currentSize -= 1;
-    display.style.fontSize = `${currentSize}rem`;
+function decreaseFontSize() {
+    if (displayVal.length > 6 && displayVal.length < 13) {
+        fontSize -= 0.5;
+        display.style.fontSize = `${fontSize}rem`;
+        console.log(fontSize);
+    } else if (displayVal.length >= 13) {
+        display.style.fontSize = `2rem`;
+    } else {
+        fontSize = 5;
+        display.style.fontSize = `${fontSize}rem`;
+    }
 }
 
 // Get Operands and Operators from Operator Input
@@ -120,7 +130,7 @@ function getResult(operator) {
 
 // Round Result with Long Decimals Accurately
 function roundResult(num) {
-    const roundedResult = Number(Math.round(num + "e" + 8) + "e-" + 8);
+    const roundedResult = Number(Math.round(num + "e" + 14) + "e-" + 14);
     return roundedResult;
 }
 
